@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
@@ -99,3 +100,7 @@ STATIC_URL = '/static/' #ex: http://127.0.0.1:8000/static/
 STATICFILES_DIRS=(
     STATIC_PATH,
 )
+
+#adc estatic media
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR,'media') #path for the media
