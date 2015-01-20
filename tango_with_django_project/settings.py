@@ -24,8 +24,16 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-TEMPLATE_DIRS  =  [ '/home/geanfelipe/Programming/python/tango-with-django/tango_with_django_project/' ]
+#adc
+TEMPLATE_DIRS  =  [
+# Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+# Always use forward slashes, even on Windows.
+# Don't forget to use absolute paths, not relative paths.
+TEMPLATE_PATH,
+]
 
+#adc 
+TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
 ALLOWED_HOSTS = []
 
 
