@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.conf import settings
@@ -10,7 +12,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^rango/',include('rango.urls')), #added this new tuple
 )
-#to upload of files
+#to upload of files Muitos sites oferecem a seus usuários com a capacidade de fazer isso - por exemplo, para fazer o upload de uma imagem de perfil
 if settings.DEBUG:
     urlpatterns += patterns(
         'django.views.static',

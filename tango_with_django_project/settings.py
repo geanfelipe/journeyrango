@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for tango_with_django_project project.
 
@@ -103,4 +104,6 @@ STATICFILES_DIRS=(
 
 #adc estatic media
 MEDIA_URL = "/media/"
+
+#MEDIA_ROOT é usado para dizer ao Django onde os arquivos enviados devem ser armazenadas em seu disco local 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media') #path for the media
