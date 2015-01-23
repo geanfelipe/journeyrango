@@ -5,9 +5,14 @@ from rango.models import Category, Page
 #admin.site.register(Category)
 #admin.site.register(Page)
 
+
+#modify apresentation on admin
+class categoryAdmin(admin.ModelAdmin):
+	list_display = ("name","views","likes")
+
 class pageAdmin(admin.ModelAdmin):
 	list_display = ('title', 'category', 'url')
 
-#modify apresentation on admin
+
 admin.site.register (Page, pageAdmin)
-admin.site.register(Category)
+admin.site.register(Category,categoryAdmin)
