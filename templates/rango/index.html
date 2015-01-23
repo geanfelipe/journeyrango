@@ -1,0 +1,17 @@
+<! DOCTYPE html>
+
+{% load staticfiles %} <!-- adc when put <img> tag -->
+
+<html>
+	<head>
+		<title>Rango Now</title>
+	</head>
+
+	<body>
+		<h1> Rango says</h1>
+			Hello world! <strong> {{ boldmessage }}</strong> <br/>
+			<a href="/rango/about">About</a><br/>
+			<img src="{% static "images/rango.jpg" %}" alt="Picture of Rango" height="400" width="500"/> <!-- New line -->
+	</body>
+
+</html>
