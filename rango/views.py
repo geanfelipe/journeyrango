@@ -10,11 +10,13 @@ def index(request):
 	# Order the categories by no. likes in descending order.
     # Retrieve the top 5 only - or all if less than 5.
     # Place the list in our context_dict dictionary which will be passed to the template engine.
+    context_dict={}
+    
     category_list = Category.objects.order_by('-likes')[:5]
-    context_dict = {'categories': category_list}
+    context_dict['categories'] = category_list
 
     most_viewed = Page.objects.order_by('-views')
-    context_dict = {'viewed':most_viewed}
+    context_dict['viewed'] = most_viewed
 
     # Render the response and send it back!
     return render(request, 'rango/index.html', context_dict)
