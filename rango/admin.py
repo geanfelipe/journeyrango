@@ -8,7 +8,7 @@ from rango.models import Category, Page
 
 #modify apresentation on admin
 class categoryAdmin(admin.ModelAdmin):
-	list_display = ("name","views","likes")
+	list_display = ("name","views","likes","slug")
 
 class pageAdmin(admin.ModelAdmin):
 	list_display = ('title', 'category', 'url')

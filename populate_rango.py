@@ -63,12 +63,3 @@ def add_cat(name):
 if __name__ == '__main__':
     print "Starting Rango population script..."
     populate()
-"""
-update some columns,ex:
-UPDATE Category
-SET views = 64 WHERE id=2
-
-on python:
-Category.objects.filter(id=2).update(views=64)
-
-"""
