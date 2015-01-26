@@ -3,6 +3,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from rango.models import Category,Page
+from rango.forms import CategoryForm
 
 def index(request):
 
@@ -51,5 +52,25 @@ def category(request, category_name_slug):
 
     return render(request, 'rango/category.html', context_dict)
 
+def add_category(request):
+    #it's a http post?
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+
+        if form.is_valid():
+            #save the new category to the database
+            form.save(commit=True)
+
+            #now call the index view
+            #the user ll be shown the homepage
+            return index(request)
+        else:
+            #print them to the terminal
+            print form.errors
+    else:
+        #if was not a post, display the form to enter details
+        form = CategoryForm()
+
+    return render(request,'rango/add_category.html',{'form':form})
 def about(request):
     return HttpResponse("About")
