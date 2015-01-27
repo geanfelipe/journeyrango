@@ -42,7 +42,7 @@ class PageForms(forms.ModelForm):
         #are to be excluded, via exclude.
         #----
 class UserForm(forms.ModelForm):
-	password = forms.CharField(widgets=forms.PasswordInput())
+	password = forms.CharField(widget=forms.PasswordInput())
 
 	class Meta:
 		model = User
