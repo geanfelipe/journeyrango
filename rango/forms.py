@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from django.contrib.auth.models import User
 from django import forms
 from rango.models import Category,Page,UserProfile
 
