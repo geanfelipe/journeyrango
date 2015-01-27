@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from rango.models import Category,Page
+from rango.models import Category,Page,UserProfile
 
 class CategoryForm(forms.ModelForm):
 	name = forms.CharField(max_length=128,help_text="Please enter the Category name")
@@ -23,20 +23,32 @@ class PageForms(forms.ModelForm):
 
 	class Meta:
 		model = Page
-    	exclude = ('category',)
+	    	exclude = ('category',)
         #or specify the fields to include (i.e. not include the category field)
         #fields = ('title', 'url', 'views')
-	"""
+	
 	def clean(self):
 		cleaned_data = self.cleaned_data
 		url = cleaned_data.get('url')
-    	# If url is not empty and doesn't start with 'http://', prepend 'http://'.
-    	if url and not url.startswith('http://'):
-       		url = 'http://' + url
-      		cleaned_data['url'] = url
-      	return cleaned_data
-      	"""
+	    	# If url is not empty and doesn't start with 'http://', prepend 'http://'.
+    		if url and not url.startswith('http://'):
+       			url = 'http://' + url
+	      		cleaned_data['url'] = url
+      		return cleaned_data
+
+    
         #----
         #n Django 1.7+ it is now required to specify the fields that are included, via fields, or specify the fields that
         #are to be excluded, via exclude.
         #----
+class UserForm(forms.ModelForm):
+	password = forms.CharField(widgets=forms.PasswordInput())
+
+	class Meta:
+		model = User
+		fields= ('username','email','password')
+
+class UserProfileForm(forms.ModelForm)	:
+	class Meta:
+		model = UserProfile
+		fields=('website','picture')

@@ -2,8 +2,8 @@
 
 from django.shortcuts import render,render_to_response
 from django.http import HttpResponse,HttpResponseRedirect
-from rango.models import Category,Page
-from rango.forms import CategoryForm,PageForms
+from rango.models import Category,Page,UserProfile
+from rango.forms import CategoryForm,PageForms,UserForm,UserProfileForm
 from django.template.response import TemplateResponse
 
 def index(request):
@@ -102,6 +102,48 @@ def add_page(request,category_name_slug):
     context_dict= {'form':form, 'category':cat, 'link':cat.slug}
 
     return render(request,'rango/add_page.html',context_dict)
+
+def register(request):
+    registred = False
+
+    if request.method== 'POST':
+        user_form = UserForm(data=request.POST)
+        profile_form = UserProfileForm(data=request.POST)
+
+        #if the two form are valid
+        if user_form.is_valid() and profile_form.is_valid():
+            #save the user's form data to the database
+            user = user_form.save()
+
+            #hash the passw with set_password method
+            #once hashed, can update the user object
+            user.set_setpassword(user.password)
+            user.save()
+
+            Profile = profile_form.save(commit=False)
+            Profile.user = user
+
+            # Did the user provide a profile picture?
+            # If so, we need to get it from the input form and put it in the UserProfile model.
+            if 'picture' in request.FILES:
+                profile.picture = request.FILES=['picture']
+
+            #now save the userprofile model instance
+            profile.save()
+
+            #update our variable to tell the template registration was succesfull
+            registred = True
+
+        #invalid form 
+        else:
+            print user_form.errors, profile_form.errors
+    
+    else:
+        user_form = UserForm()
+        profile_form = UserProfileForm()
+
+    return render(request,'rango/register.html',{'user_form':user_form,'profile_form':profile_form,'registred':registred})
+
 
 def about(request):
     return HttpResponse("About")
