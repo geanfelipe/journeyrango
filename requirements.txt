@@ -259,3 +259,4 @@ xlrd==0.6.1
 xlwt==0.7.4
 zinnia-python==0.0.0
 zope.interface==3.6.1
+psycopg2==2.4.2
