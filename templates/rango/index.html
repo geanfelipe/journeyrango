@@ -25,7 +25,7 @@
 	        <h2> The top 5 most viewed</h2>
 	        <ul>
 	        	{% for top in viewed %}
-	        	<li><a href="/rango/category/{{ category.slug }}">{{ top.title }}</a> </li>
+	        	<li><a href="{{ top.url }}">{{ top.title }}</a> </li>
 	        	{% endfor %}
 	        </ul>
 	    {% else %}

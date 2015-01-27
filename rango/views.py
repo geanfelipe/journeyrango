@@ -3,8 +3,7 @@
 from django.shortcuts import render,render_to_response
 from django.http import HttpResponse,HttpResponseRedirect
 from rango.models import Category,Page
-from rango.forms import CategoryForm 
-#from rango.forms import PageForms
+from rango.forms import CategoryForm,PageForms
 from django.template.response import TemplateResponse
 
 def index(request):
@@ -65,6 +64,7 @@ def add_category(request):
 
             #now call the index view
             #the user ll be shown the homepage
+            
             #return HttpResponseRedirect("/rango/")
             return TemplateResponse(request, 'rango/saved.html', {})
             
@@ -92,15 +92,16 @@ def add_page(request,category_name_slug):
                 page.category=cat
                 page.views= 0
                 page.save()
+                #return TemplateResponse(request, 'rango/saved.html', {})
                 return category(request,category_name_slug)
-            else:
-                print form.errors
         else:
-            form = PageForms()
+            print form.errors
+    else:
+        form = PageForms()
 
-        context_dict= {'form':form, 'category':cat}
+    context_dict= {'form':form, 'category':cat, 'link':cat.slug}
 
-        return render(request,'rango/add_page.html',context_dict)
+    return render(request,'rango/add_page.html',context_dict)
 
 def about(request):
     return HttpResponse("About")

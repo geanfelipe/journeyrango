@@ -7,7 +7,7 @@
     <body>
         <h1>Add a Category</h1>
 
-        <form id = "category_form" method="post" action="/rango/add_category/">
+        <form id = "page_form" method="post" action="/rango/add_category/">
 
         	<!--oken de Cross-Site Request Forgery (CSRF)-->
         	{% csrf_token %}
@@ -17,11 +17,11 @@
 
         	{% for field in form.visible_fields %}
         		{{ field.errors }}
-        		{{ field.help_text }}
+                {{ field.help_text }}
         		{{ field }}
         	{% endfor %}
 
-        	<input type="submit" name="submit" value="Create Category"/>
+        	<input type="submit" name="submit" value="Create Page"/>
 
         </form>
     </body>
