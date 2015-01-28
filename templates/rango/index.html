@@ -9,9 +9,10 @@
     <body>
         {% if user.is_authenticated %}
             <h1>Rango says Hello {{ user.username }}</h1>
-        {{% else %}}
+        {% else %}
             <h1> Rango says hello visitor </h1>
-        {{% endif %}}
+        {% endif %}
+
         {% if categories %}
             <ul>
                 {% for category in categories %}
