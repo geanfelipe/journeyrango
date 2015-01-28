@@ -5,6 +5,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 from rango.models import Category,Page,UserProfile
 from rango.forms import CategoryForm,PageForms,UserForm,UserProfileForm
 from django.template.response import TemplateResponse
+from django.contrib.auth import authenticate, login
 
 def index(request):
 
@@ -144,6 +145,29 @@ def register(request):
 
     return render(request,'rango/register.html',{'user_form':user_form,'profile_form':profile_form,'registred':registred})
 
+def user_login(request):
+
+    if request.method=='POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(username=username, password=password)
+        if user:
+            
+            #is the account active?
+            if user.is_active:
+                login(request,user)
+                return HttpResponseRedirect('/rango/')
+            else:
+                return HttpResponse("Your Rango account is disabled")
+        else:
+            #bad login details were provided , so can't log the user in
+            print "Invalid login details: {0}, {1}".format(username,password)
+            return HttpResponse("Invalid login details supplied")
+    
+    #the request is not a http post, so display the login form
+    else:
+        return render(request,'rango/login.html',{})
 
 def about(request):
     return HttpResponse("About")
