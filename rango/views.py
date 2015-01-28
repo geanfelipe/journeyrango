@@ -5,7 +5,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 from rango.models import Category,Page,UserProfile
 from rango.forms import CategoryForm,PageForms,UserForm,UserProfileForm
 from django.template.response import TemplateResponse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 def index(request):
@@ -177,6 +177,13 @@ def restricted(request):
     page, defined in the URL file
     """
     return HttpResponse("since you are logged in, you can see this test!")
+
+@login_required
+def user_logout(request):
+    logout(request)
+
+    #take the user back to the homepage
+    return HttpResponseRedirect('/rango/')
 
 def about(request):
     return HttpResponse("About")
