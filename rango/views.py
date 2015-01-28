@@ -121,8 +121,8 @@ def register(request):
             user.set_password(user.password)
             user.save()
 
-            Profile = profile_form.save(commit=False)
-            Profile.user = user
+            profile = profile_form.save(commit=False)
+            profile.user = user
 
             # Did the user provide a profile picture?
             # If so, we need to get it from the input form and put it in the UserProfile model.
