@@ -6,6 +6,7 @@ from rango.models import Category,Page,UserProfile
 from rango.forms import CategoryForm,PageForms,UserForm,UserProfileForm
 from django.template.response import TemplateResponse
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 
 def index(request):
 
@@ -168,6 +169,14 @@ def user_login(request):
     #the request is not a http post, so display the login form
     else:
         return render(request,'rango/login.html',{})
+
+@login_required
+def restricted(request):
+    """
+    if the user is not logged then it redirect another \
+    page, defined in the URL file
+    """
+    return HttpResponse("since you are logged in, you can see this test!")
 
 def about(request):
     return HttpResponse("About")

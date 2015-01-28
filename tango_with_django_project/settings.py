@@ -98,6 +98,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+LOGIN_URL = '/rango/login/'
 
 STATIC_PATH = os.path.join(BASE_DIR,'static')
 
