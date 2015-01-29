@@ -37,7 +37,7 @@ class UserProfile(models.Model):
 	#additional attributes to include
 	#allows users need not fill in these fields
 	website = models.URLField(blank=True)
-	picture = models.ImageField(upload_to='profile_images',blank=True)
+	picture = models.ImageField(upload_to='profile_images/%Y/%m/%d',blank=True)
 
 	def __unicode__(self):
 		return self.user.username

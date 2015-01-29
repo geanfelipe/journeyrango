@@ -11,6 +11,7 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^rango/',include('rango.urls')), #added this new tuple
+    (r'^accounts/', include('registration.backends.simple.urls')),
 )
 #to upload of files Muitos sites oferecem a seus usuários com a capacidade de fazer isso - por exemplo, para fazer o upload de uma imagem de perfil
 if settings.DEBUG:

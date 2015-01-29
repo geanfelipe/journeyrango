@@ -7,6 +7,7 @@ from rango.forms import CategoryForm,PageForms,UserForm,UserProfileForm
 from django.template.response import TemplateResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from datetime import datetime
 
 def index(request):
 
@@ -16,8 +17,51 @@ def index(request):
     # Place the list in our context_dict dictionary which will be passed to the template engine.
     context_dict={}
     
-    category_list = Category.objects.order_by('-likes')[:5]
+    category_list = Category.objects.all()
+    page_list = Page.objects.order_by('-views')[:5]
+
     context_dict['categories'] = category_list
+    context_dict['pages']= page_list
+
+    visits = request.session.get('visits')
+
+    if not visits:
+        visits = 1
+    reset_last_visit_time = False
+
+    last_visit  = request.session.get('last_visit')
+    if last_visit:
+        last_visit_time = datetime.strptime(last_visit[:-7], "%Y-%m-%d %H:%M:%S")
+
+        if (datetime.now() - last_visit_time).seconds > 10:
+            visits +=1
+            #and update the last cookie
+            reset_last_visit_time = False
+
+    response = render(request, 'rango/index.html',context_dict)
+
+    if 'last_visit' in request.COOKIES:
+        #get cookie value
+        last_visit = request.COOKIES['last_visit']
+        #cast to python date
+        last_visit_time = datetime.strptime(last_visit[:-7],"%Y-%m-%d %H:%M:%S")
+
+        #if it's been more than a day since that the last visit
+        if (datetime.now() - last_visit_time).seconds > 10:
+            visits +=1
+            reset_last_visit_time= True
+
+    else:
+        #last_visit doen't exist , update
+        reset_last_visit_time = True
+        context_dict['visits']= visits
+        response= render(request, 'rango/index.html',context_dict)
+
+    if reset_last_visit_time:
+        response.set_cookie('last_visit',datetime.now())        
+        response.set_cookie('visits',visits)
+
+    return response
 
     most_viewed = Page.objects.order_by('-views')[:5]
     context_dict['viewed'] = most_viewed
@@ -108,6 +152,7 @@ def add_page(request,category_name_slug):
 def register(request):
     registred = False
 
+
     if request.method== 'POST':
         user_form = UserForm(data=request.POST)
         profile_form = UserProfileForm(data=request.POST)
@@ -128,7 +173,7 @@ def register(request):
             # Did the user provide a profile picture?
             # If so, we need to get it from the input form and put it in the UserProfile model.
             if 'picture' in request.FILES:
-                profile.picture = request.FILES=['picture']
+                profile.picture = request.FILES['picture']
 
             #now save the userprofile model instance
             profile.save()
@@ -187,4 +232,37 @@ def user_logout(request):
     return HttpResponseRedirect('/rango/')
 
 def about(request):
-    return HttpResponse("About")
+    visits = int(request.COOKIES.get('visits', '1'))
+
+    context_dict = {}
+
+    visits = request.session.get('visits')
+    if not visits:
+        visits = 1
+    reset_last_visit_time = False
+
+    last_visit = request.session.get('last_visit')
+    if last_visit:
+        last_visit_time = datetime.strptime(last_visit[:-7], "%Y-%m-%d %H:%M:%S")
+
+        if (datetime.now() - last_visit_time).seconds > 3600:
+            # ...reassign the value of the cookie to +1 of what it was before...
+            visits = visits + 1
+            # ...and update the last visit cookie, too.
+            reset_last_visit_time = True
+    else:
+        # Cookie last_visit doesn't exist, so create it to the current date/time.
+        reset_last_visit_time = True
+
+    if reset_last_visit_time:
+        request.session['last_visit'] = str(datetime.now())
+        request.session['visits'] = visits
+    
+    context_dict['visits'] = visits
+
+
+    response = render(request,'rango/about.html', context_dict)
+
+    print context_dict['visits']
+    #return HttpResponse('Rango says: Here is the about page. <a href="/rango/">Index</a>')
+    return response    

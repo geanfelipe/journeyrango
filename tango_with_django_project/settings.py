@@ -50,6 +50,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rango',
+    'registration',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -98,7 +99,13 @@ USE_L10N = True
 
 USE_TZ = True
 
-LOGIN_URL = '/rango/login/'
+REGISTRATION_OPEN = True
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_AUTO_LOGIN = True
+LOGIN_REDIRECT_URL = '/rango/'
+LOGIN_URL = '/accounts/login/'
+#LOGOUT_URL= '/rango/logout/'
+
 
 STATIC_PATH = os.path.join(BASE_DIR,'static')
 
@@ -110,9 +117,8 @@ STATIC_URL = '/static/' #ex: http://127.0.0.1:8000/static/
 STATICFILES_DIRS=(
     STATIC_PATH,
 )
+#MEDIA_ROOT é usado para dizer ao Django onde os arquivos enviados devem ser armazenadas em seu disco local 
+MEDIA_ROOT = os.path.join(BASE_DIR,'media') #path for the media
 
 #adc estatic media
 MEDIA_URL = "/media/"
-
-#MEDIA_ROOT é usado para dizer ao Django onde os arquivos enviados devem ser armazenadas em seu disco local 
-MEDIA_ROOT = os.path.join(BASE_DIR,'media') #path for the media
