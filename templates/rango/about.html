@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+
+{% load staticfiles %} <!-- adc when put <img> or any static file tag --> 
+<html>
+    <head>
+        <title>Rango</title>
+    </head>
+
+    <body>
+    	<p><h1>Been {{ visits }} in that page</h1></p>
+
+        <a href="{% url 'index' %}">Home</a>
+    </body>
+</html>
