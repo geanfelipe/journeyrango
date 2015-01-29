@@ -163,8 +163,9 @@ def user_login(request):
                 return HttpResponse("Your Rango account is disabled")
         else:
             #bad login details were provided , so can't log the user in
-            print "Invalid login details: {0}, {1}".format(username,password)
-            return HttpResponse("Invalid login details supplied")
+            print "Invalid login details: {0}, {1}".format(username,password)        
+
+            return HttpResponse("Invalid login details supplied",{})
     
     #the request is not a http post, so display the login form
     else:
@@ -174,7 +175,7 @@ def user_login(request):
 def restricted(request):
     """
     if the user is not logged then it redirect another \
-    page, defined in the URL file
+    page, defined in the URL 
     """
     return HttpResponse("since you are logged in, you can see this test!")
 
