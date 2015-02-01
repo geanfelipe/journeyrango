@@ -1,5 +1,6 @@
 # journeyrango
 django project 
+#modied gean
 
 the 5 most viewed pages;
 the five most rango’ed categories; and
