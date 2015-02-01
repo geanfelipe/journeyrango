@@ -1,14 +1,16 @@
-<!DOCTYPE html>
+{% extends 'rango/base.html' %}
 
-{% load staticfiles %} <!-- adc when put <img> or any static file tag --> 
-<html>
-    <head>
-        <title>Rango</title>
-    </head>
+{% load staticfiles %}
 
-    <body>
-    	<p><h1>Been {{ visits }} in that page</h1></p>
+{% block title %}About{% endblock %}
 
-        <a href="{% url 'index' %}">Home</a>
-    </body>
-</html>
+{% block body_block %}
+    <div class="page-header">
+                <h1>About</h1>
+            </div>
+            <div>
+            <p></strong>.</p>
+
+            <img  width="550" height="400" src="{% static "images/rango.jpg" %}" alt="Picture of Rango" /> <!-- New line -->
+            </div>
+{% endblock %}

@@ -1,9 +1,7 @@
-<!DOCTYPE html> 
+{% extends 'rango/base.html' %}
+
 {% load staticfiles %} <!-- adc when put <img> or any static file tag --> 
-<html> 
-    <head> 
-        <title> Rango </title> 
-    </head>
+{% block body_block %}
     <Body> 
         <h1> Register with Rango </h1>
 
@@ -25,5 +23,4 @@
             <input type="submit" name="submit" value="Register" />
         </form>
         {% endif %}
-    </body>
-</html>
+    {% endblock %}
