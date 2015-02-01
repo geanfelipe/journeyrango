@@ -1,4 +1,4 @@
-# journeyrango 
+# journeyrango
 django project 
 
 the 5 most viewed pages;
