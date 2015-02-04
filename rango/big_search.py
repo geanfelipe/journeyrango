@@ -1,8 +1,8 @@
 import json 
 import urllib, urllib2
+from keys import BING_API_KEY
 
 
-BING_API_KEY = 'TqOk8GqrKVJPJn/+V97CaVZIjDhP5GudVU+V3NWG1wk'
 
 def run_query(search_tems):
 	#specify_database
@@ -60,5 +60,5 @@ def run_query(search_tems):
 	return results
 
 if __name__ == '__main__':
-	#pesquisa = raw_input("pesquisa: ")
-	#print (run_query(pesquisa))
+	pesquisa = raw_input("pesquisa: ")
+	print (run_query(pesquisa))
