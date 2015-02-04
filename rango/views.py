@@ -8,7 +8,7 @@ from django.template.response import TemplateResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
-
+from bing_search import run_query
 def index(request):
 
     # Query the database for a list of ALL categories currently stored.
@@ -266,3 +266,15 @@ def about(request):
     print context_dict['visits']
     #return HttpResponse('Rango says: Here is the about page. <a href="/rango/">Index</a>')
     return response    
+
+def search(request):
+    result_list = []
+
+    if request.method== 'POST':
+        query = request.POST['query'].strip()
+
+        if query:
+            #run bing function to get the result list
+            result_list = run_query(query)
+
+    return render(request,'rango/search.html',{'result_list':result_list})
